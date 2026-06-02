@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
 :root {
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Lexend', sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: #102130;
@@ -21,6 +23,14 @@ body,
 
 body {
   min-height: 100vh;
+  font-family: 'Lexend', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
 }
 
 #app {
@@ -54,10 +64,9 @@ body {
 }
 
 .app-brand__eyebrow {
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(16, 33, 48, 0.55);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  color: rgba(16, 33, 48, 0.62);
 }
 
 .app-brand__title {
@@ -72,7 +81,7 @@ body {
 
 .app-frame {
   min-height: calc(100vh - 144px);
-  padding: 8px 12px 96px;
+  padding-bottom: 104px;
 }
 
 .page-shell {
@@ -101,11 +110,24 @@ body {
   background: rgba(255, 255, 255, 0.9);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: min(100%, 480px);
+  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 20;
 }
 
 .mobile-nav .v-btn {
   min-width: 0;
+  min-height: 48px;
   font-size: 0.72rem;
+  flex-direction: column;
+}
+
+.mobile-nav .v-btn--selected {
+  color: rgb(var(--v-theme-primary));
 }
 
 .dashboard-shell {
