@@ -107,3 +107,134 @@ body {
   min-width: 0;
   font-size: 0.72rem;
 }
+
+.dashboard-shell {
+  padding-top: 8px;
+}
+
+.dashboard-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 4px 16px;
+}
+
+.dashboard-header__eyebrow {
+  margin: 0;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(16, 33, 48, 0.6);
+}
+
+.dashboard-header__title {
+  margin: 0;
+  font-size: 1.65rem;
+  line-height: 1.1;
+  color: #102130;
+}
+
+.dashboard-header__subtitle {
+  margin: 0;
+  color: rgba(16, 33, 48, 0.7);
+}
+
+.metric-card {
+  cursor: pointer;
+  transform: translateY(0);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(16, 33, 48, 0.14);
+}
+
+.metric-card:focus-visible {
+  outline: 2px solid rgba(8, 109, 98, 0.5);
+  outline-offset: 3px;
+}
+
+.metric-card--active {
+  border-color: rgba(8, 109, 98, 0.35);
+}
+
+.metric-card--teal {
+  background: linear-gradient(180deg, rgba(8, 109, 98, 0.08), rgba(255, 255, 255, 0.92));
+}
+
+.metric-card--blue {
+  background: linear-gradient(180deg, rgba(13, 71, 161, 0.08), rgba(255, 255, 255, 0.92));
+}
+
+.metric-card--gold {
+  background: linear-gradient(180deg, rgba(180, 120, 0, 0.1), rgba(255, 255, 255, 0.92));
+}
+
+.metric-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 176px;
+}
+
+.metric-card__icon-wrap {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #102130;
+}
+
+.metric-card__value {
+  font-size: 2.6rem;
+  line-height: 1;
+  font-weight: 800;
+  color: #102130;
+}
+
+.metric-card__label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #102130;
+}
+
+.metric-card__subtitle {
+  color: rgba(16, 33, 48, 0.7);
+}
+
+.interest-card__title {
+  font-weight: 800;
+  color: #102130;
+}
+
+.interest-list {
+  background: transparent;
+}
+
+.interest-list .v-list-item {
+  border-radius: 16px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(16, 33, 48, 0.06);
+}
+
+.interest-count {
+  min-width: 38px;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.interest-card__footer {
+  display: flex;
+  gap: 8px;
+  padding: 8px 4px 0;
+  color: rgba(16, 33, 48, 0.72);
+}
