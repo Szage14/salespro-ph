@@ -2,10 +2,10 @@
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #11202e;
+  color: #102130;
   background:
-    radial-gradient(circle at top, rgba(13, 71, 161, 0.14), transparent 38%),
-    linear-gradient(180deg, #f6f9fc 0%, #eef3f7 100%);
+    radial-gradient(circle at top, rgba(8, 109, 98, 0.16), transparent 34%),
+    linear-gradient(180deg, #eef5f2 0%, #e4ece8 100%);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -23,16 +23,87 @@ body {
   min-height: 100vh;
 }
 
+#app {
+  display: flex;
+  justify-content: center;
+}
+
+.v-application {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.72)),
+    radial-gradient(circle at top, rgba(8, 109, 98, 0.15), transparent 36%),
+    linear-gradient(180deg, #f7fbf9 0%, #edf4f1 100%);
+  box-shadow: 0 0 0 1px rgba(16, 33, 48, 0.06), 0 18px 48px rgba(16, 33, 48, 0.12);
+  overflow: hidden;
+}
+
+.app-bar-shell {
+  padding-inline: 4px;
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.app-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.1;
+}
+
+.app-brand__eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(16, 33, 48, 0.55);
+}
+
+.app-brand__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #102130;
+}
+
+.app-main {
+  padding-top: 0;
+}
+
+.app-frame {
+  min-height: calc(100vh - 144px);
+  padding: 8px 12px 96px;
+}
+
 .page-shell {
-  padding: 16px;
-  padding-bottom: 96px;
+  padding: 4px 0 0;
 }
 
 .page-card {
-  border: 1px solid rgba(17, 32, 46, 0.08);
-  box-shadow: 0 18px 40px rgba(17, 32, 46, 0.08);
+  border: 1px solid rgba(16, 33, 48, 0.08);
+  box-shadow: 0 14px 36px rgba(16, 33, 48, 0.1);
+  background: rgba(255, 255, 255, 0.88);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.page-card .v-card-title {
+  font-weight: 700;
+}
+
+.page-card .v-card-text {
+  color: rgba(16, 33, 48, 0.72);
 }
 
 .mobile-nav {
-  border-top: 1px solid rgba(17, 32, 46, 0.08);
+  border-top: 1px solid rgba(16, 33, 48, 0.08);
+  box-shadow: 0 -10px 24px rgba(16, 33, 48, 0.08);
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.mobile-nav .v-btn {
+  min-width: 0;
+  font-size: 0.72rem;
 }
