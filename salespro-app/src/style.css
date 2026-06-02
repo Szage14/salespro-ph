@@ -141,15 +141,6 @@ h4 {
   padding: 8px 4px 16px;
 }
 
-.dashboard-header__eyebrow {
-  margin: 0;
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(16, 33, 48, 0.6);
-}
-
 .dashboard-header__title {
   margin: 0;
   font-size: 1.65rem;
@@ -185,16 +176,16 @@ h4 {
   border-color: rgba(8, 109, 98, 0.35);
 }
 
-.metric-card--teal {
+.metric-card--primary {
   background: linear-gradient(180deg, rgba(8, 109, 98, 0.08), rgba(255, 255, 255, 0.92));
 }
 
-.metric-card--blue {
+.metric-card--secondary {
   background: linear-gradient(180deg, rgba(13, 71, 161, 0.08), rgba(255, 255, 255, 0.92));
 }
 
-.metric-card--gold {
-  background: linear-gradient(180deg, rgba(180, 120, 0, 0.1), rgba(255, 255, 255, 0.92));
+.metric-card--neutral {
+  background: linear-gradient(180deg, rgba(180, 120, 0, 0.06), rgba(255, 255, 255, 0.92));
 }
 
 .metric-card__content {
@@ -237,26 +228,19 @@ h4 {
   color: #102130;
 }
 
-.interest-list {
-  background: transparent;
+.interest-chip-group {
+  gap: 10px;
 }
 
-.interest-list .v-list-item {
-  border-radius: 16px;
-  margin-bottom: 8px;
-  background: rgba(255, 255, 255, 0.68);
-  border: 1px solid rgba(16, 33, 48, 0.06);
+.interest-chip {
+  min-height: 48px;
+  padding-inline: 14px;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid rgba(16, 33, 48, 0.08);
 }
 
-.interest-count {
-  min-width: 38px;
-  justify-content: center;
-  font-weight: 700;
-}
-
-.interest-card__footer {
-  display: flex;
-  gap: 8px;
-  padding: 8px 4px 0;
+.interest-chip__count {
+  margin-left: 4px;
   color: rgba(16, 33, 48, 0.72);
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 
 type MetricKey = 'leads' | 'approached' | 'walkIns'
 
@@ -9,26 +9,26 @@ const metrics = [
   {
     key: 'leads' as const,
     label: 'Leads Generated',
-    icon: 'mdi-account-multiple-plus',
+    icon: 'mdi-account-plus',
     value: 0,
-    subtitle: 'Total potential customers identified today',
-    accent: 'metric-card--teal',
+    subtitle: 'Potential customers identified today',
+    accent: 'metric-card--primary',
   },
   {
     key: 'approached' as const,
     label: 'People Approached',
     icon: 'mdi-walk',
     value: 0,
-    subtitle: 'Customers you have personally engaged',
-    accent: 'metric-card--blue',
+    subtitle: 'Customers personally engaged',
+    accent: 'metric-card--secondary',
   },
   {
     key: 'walkIns' as const,
-    label: 'Store Visitors / Walk-ins',
-    icon: 'mdi-storefront-outline',
+    label: 'Store Walk-ins',
+    icon: 'mdi-store',
     value: 0,
     subtitle: 'Customers who entered the store',
-    accent: 'metric-card--gold',
+    accent: 'metric-card--neutral',
   },
 ] as const
 
@@ -40,8 +40,6 @@ const interestSummary = ref([
   { label: 'Others', count: 0, icon: 'mdi-dots-horizontal-circle-outline' },
 ])
 
-const selectedCard = computed(() => metrics.find((metric) => metric.key === selectedMetric.value))
-
 function activateMetric(key: MetricKey) {
   selectedMetric.value = key
 }
@@ -52,9 +50,8 @@ function activateMetric(key: MetricKey) {
     <v-row>
       <v-col cols="12">
         <div class="dashboard-header">
-          <p class="dashboard-header__eyebrow">Field performance</p>
-          <h1 class="dashboard-header__title">Sales Dashboard</h1>
-          <p class="dashboard-header__subtitle">Track your daily field activity</p>
+          <h1 class="dashboard-header__title">Good day, Sales Associate</h1>
+          <p class="dashboard-header__subtitle">Track your daily field performance</p>
         </div>
       </v-col>
     </v-row>
@@ -86,32 +83,22 @@ function activateMetric(key: MetricKey) {
     <v-row>
       <v-col cols="12">
         <v-card class="page-card interest-card" rounded="xl" elevation="8">
-          <v-card-title class="interest-card__title">
-            Customer Interest Summary
-          </v-card-title>
+          <v-card-title class="interest-card__title">Customer Interest Overview</v-card-title>
           <v-card-text class="pt-0">
-            <v-list class="interest-list" lines="one" density="comfortable">
-              <v-list-item v-for="item in interestSummary" :key="item.label">
-                <template #prepend>
-                  <v-avatar color="primary" variant="tonal" size="32">
-                    <v-icon :icon="item.icon" size="18" />
-                  </v-avatar>
-                </template>
-
-                <v-list-item-title>{{ item.label }}</v-list-item-title>
-
-                <template #append>
-                  <v-chip color="primary" variant="tonal" size="small" class="interest-count">
-                    {{ item.count }}
-                  </v-chip>
-                </template>
-              </v-list-item>
-            </v-list>
-
-            <div class="interest-card__footer">
-              <span>Selected card:</span>
-              <strong>{{ selectedCard?.label }}</strong>
-            </div>
+            <v-chip-group column class="interest-chip-group">
+              <v-chip
+                v-for="item in interestSummary"
+                :key="item.label"
+                class="interest-chip"
+                variant="elevated"
+                color="surface"
+                size="large"
+              >
+                <v-icon :icon="item.icon" start size="18" />
+                {{ item.label }}
+                <span class="interest-chip__count">({{ item.count }})</span>
+              </v-chip>
+            </v-chip-group>
           </v-card-text>
         </v-card>
       </v-col>
