@@ -1,42 +1,43 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 
-type SalesStatus = 'Interested' | 'Applied' | 'Approved' | 'Declined'
+type ProductCategory = 'Smartphone' | 'Laptop' | 'TV' | 'Appliance' | 'Others'
+type ActivityStatus = 'Approached' | 'Interested' | 'Not Interested' | 'Follow-up'
 
 type SalesEntry = {
   customerName: string
-  product: string
-  status: SalesStatus
+  productCategory: ProductCategory
+  status: ActivityStatus
   notes: string
+  timestamp: string
 }
 
-const storageKey = 'salespro-sales-entries'
-
 const customerName = ref('')
-const product = ref('')
-const status = ref<SalesStatus>('Interested')
+const productCategory = ref<ProductCategory>('Smartphone')
+const status = ref<ActivityStatus>('Approached')
 const notes = ref('')
 const entries = ref<SalesEntry[]>([])
 
-const statusOptions: SalesStatus[] = ['Interested', 'Applied', 'Approved', 'Declined']
+const categoryOptions: ProductCategory[] = ['Smartphone', 'Laptop', 'TV', 'Appliance', 'Others']
+const statusOptions: ActivityStatus[] = ['Approached', 'Interested', 'Not Interested', 'Follow-up']
 
-const canSave = computed(() => customerName.value.trim() !== '' && product.value.trim() !== '')
+const statusColorMap: Record<ActivityStatus, string> = {
+  Approached: 'primary',
+  Interested: 'success',
+  'Not Interested': 'error',
+  'Follow-up': 'secondary',
+}
 
-function loadEntries() {
-  if (typeof window === 'undefined') {
-    return
-  }
+const canSave = computed(() => customerName.value.trim() !== '' && notes.value.trim() !== '')
 
-  const saved = window.localStorage.getItem(storageKey)
-  if (!saved) {
-    return
-  }
-
-  try {
-    entries.value = JSON.parse(saved) as SalesEntry[]
-  } catch {
-    entries.value = []
-  }
+function createTimestamp() {
+  return new Date().toLocaleString('en-PH', {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  })
 }
 
 function saveEntry() {
@@ -46,30 +47,17 @@ function saveEntry() {
 
   entries.value.unshift({
     customerName: customerName.value.trim(),
-    product: product.value.trim(),
+    productCategory: productCategory.value,
     status: status.value,
     notes: notes.value.trim(),
+    timestamp: createTimestamp(),
   })
 
   customerName.value = ''
-  product.value = ''
-  status.value = 'Interested'
+  productCategory.value = 'Smartphone'
+  status.value = 'Approached'
   notes.value = ''
 }
-
-watch(
-  entries,
-  (value) => {
-    if (typeof window === 'undefined') {
-      return
-    }
-
-    window.localStorage.setItem(storageKey, JSON.stringify(value))
-  },
-  { deep: true },
-)
-
-onMounted(loadEntries)
 </script>
 
 <template>
@@ -77,14 +65,20 @@ onMounted(loadEntries)
     <v-row>
       <v-col cols="12">
         <v-card class="page-card" rounded="xl" elevation="8">
-          <v-card-title class="text-h6 font-weight-bold">Sales Tracker</v-card-title>
+          <v-card-title class="text-h6 font-weight-bold">Sales Activity Tracker</v-card-title>
           <v-card-text class="pt-0">
             <v-row dense>
               <v-col cols="12">
-                <v-text-field v-model="customerName" label="Customer name" variant="outlined" hide-details />
+                <v-text-field v-model="customerName" label="Customer Name" variant="outlined" hide-details />
               </v-col>
               <v-col cols="12">
-                <v-text-field v-model="product" label="Product" variant="outlined" hide-details />
+                <v-select
+                  v-model="productCategory"
+                  :items="categoryOptions"
+                  label="Product Category"
+                  variant="outlined"
+                  hide-details
+                />
               </v-col>
               <v-col cols="12">
                 <v-select
@@ -100,7 +94,7 @@ onMounted(loadEntries)
               </v-col>
               <v-col cols="12">
                 <v-btn block color="primary" size="large" rounded="lg" :disabled="!canSave" @click="saveEntry">
-                  Save sales entry
+                  Save activity
                 </v-btn>
               </v-col>
             </v-row>
@@ -112,18 +106,28 @@ onMounted(loadEntries)
     <v-row class="mt-2">
       <v-col cols="12">
         <v-card class="page-card" rounded="xl" elevation="8">
-          <v-card-title class="text-h6 font-weight-bold">Saved Entries</v-card-title>
+          <v-card-title class="text-h6 font-weight-bold">Saved Activities</v-card-title>
           <v-card-text class="pt-0">
             <v-list v-if="entries.length" class="bg-transparent" lines="two">
-              <v-list-item v-for="(entry, index) in entries" :key="`${entry.customerName}-${index}`">
-                <v-list-item-title>{{ entry.customerName }}</v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ entry.product }} · {{ entry.status }}
-                </v-list-item-subtitle>
-                <template #append>
-                  <v-chip size="small" color="primary" variant="tonal">{{ index + 1 }}</v-chip>
+              <v-list-item v-for="(entry, index) in entries" :key="`${entry.customerName}-${entry.timestamp}-${index}`">
+                <template #prepend>
+                  <v-avatar color="primary" variant="tonal" size="38">
+                    <span class="text-caption font-weight-bold">{{ index + 1 }}</span>
+                  </v-avatar>
                 </template>
-                <div v-if="entry.notes" class="text-body-2 mt-2 text-medium-emphasis">
+
+                <v-list-item-title class="font-weight-bold">{{ entry.customerName }}</v-list-item-title>
+                <v-list-item-subtitle>
+                  {{ entry.productCategory }} · {{ entry.timestamp }}
+                </v-list-item-subtitle>
+
+                <template #append>
+                  <v-chip :color="statusColorMap[entry.status]" variant="tonal" size="small">
+                    {{ entry.status }}
+                  </v-chip>
+                </template>
+
+                <div class="text-body-2 mt-2 text-medium-emphasis">
                   {{ entry.notes }}
                 </div>
               </v-list-item>
@@ -132,8 +136,8 @@ onMounted(loadEntries)
             <v-empty-state
               v-else
               icon="mdi-clipboard-text-outline"
-              title="No saved entries yet"
-              text="Add a sales entry to build your tracker locally on this device."
+              title="No saved activities yet"
+              text="Track customer activity locally with no backend or API calls."
             />
           </v-card-text>
         </v-card>

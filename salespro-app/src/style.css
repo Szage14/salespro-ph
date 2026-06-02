@@ -153,6 +153,69 @@ h4 {
   color: rgba(16, 33, 48, 0.7);
 }
 
+.calc-summary-card {
+  min-height: 132px;
+}
+
+.calc-summary-card__label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(16, 33, 48, 0.68);
+  margin-bottom: 10px;
+}
+
+.calc-summary-card__label--inverse {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.calc-summary-card__value {
+  font-size: 2rem;
+  line-height: 1.05;
+  font-weight: 800;
+  color: #102130;
+}
+
+.calc-summary-card__value--inverse {
+  color: #ffffff;
+}
+
+.note-card {
+  border: 1px solid rgba(16, 33, 48, 0.08);
+}
+
+.note-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.note-card__icon {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(8, 109, 98, 0.1);
+  color: rgb(var(--v-theme-primary));
+}
+
+.note-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #102130;
+  margin-bottom: 6px;
+}
+
+.note-card__content {
+  color: rgba(16, 33, 48, 0.74);
+  line-height: 1.5;
+}
+
 .metric-card {
   cursor: pointer;
   transform: translateY(0);
